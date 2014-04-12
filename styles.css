@@ -1,0 +1,35 @@
+h1{
+	text-align: center;
+	font-family: "Helvetica"; 
+	font-weight: 200; 
+	font-size: 40pt; 
+	color:blue;
+}
+h2{
+	text-align: center; 
+	font-family: "Helvetica"; 
+	font-weight: 200; 
+	font-size: 30pt; 
+	color:green;}
+p{
+	text-align: center; 
+	font-family: "Helvetica"; 
+	font-weight: 200; 
+	font-size: 20pt; 
+	color:gray;
+}
+svg { 
+	border: solid black 10px; 
+	background-color: #FFFFFF;
+}
+#canvas {
+	display: block; 
+	text-align: center;
+}
+.axis path { 
+	fill: none; 
+	stroke: black;
+}
+.axis line { 
+	stroke: black; 
+}
