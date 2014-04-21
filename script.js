@@ -46,12 +46,6 @@ d3.json("data.json", function(error,unfiltered_data) {
      //create the svg 
      var svg = d3.select("#canvas").append("svg").attr("height", svgYlen).attr("width", svgXlen);
 
-     // create the slider
-     d3.select('#slider').call(d3.slider().axis(true).value([10,25]).on("slide", function(evt, value) {
-          // filter the points
-          // change the axis
-     }));
-
      var xScale = d3.time.scale().domain([x1, x2]).range([xPadding, svgXlen - xPadding]);
      var yScale = d3.scale.linear().domain([y1,y2]).range([svgYlen-yPadding, yPadding]);
      var rScale = d3.scale.log().domain([100,1]).range([0.5,10]);
