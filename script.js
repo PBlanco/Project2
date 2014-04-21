@@ -1,4 +1,16 @@
+
 $(document).ready(function() {
+
+
+ $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 1990,
+      max: 2014,
+      values: [ 1990, 2014 ],
+      slide: function( event, ui ) { return 0;}
+    });
+ });
 
 var color_code = {};
 color_code['Alternative'] = '#000080';
@@ -105,6 +117,7 @@ d3.json("data.json", function(error,unfiltered_data) {
     });
 
      // dont delete this you boner
+
 
 
      //*******Graph functionality
