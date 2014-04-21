@@ -39,24 +39,28 @@ d3.json("data.json", function(error,unfiltered_data) {
      var y1 = d3.min(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
      var y2 = d3.max(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
 
-     var svgXlen = 1050;
-     var svgYlen = 800;
-     var xPadding = 50;
-     var yPadding = 20;
+     var margin = {top: 20, right: 20, bottom: 40, left: 60};
+     var width = 1050 - margin.left - margin.right;
+     var height = 800 - margin.top - margin.bottom;
      
      //create the svg 
-     var svg = d3.select("#canvas").append("svg").attr("height", svgYlen).attr("width", svgXlen);
+     var svg = d3.select("#canvas").append("svg").attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
 
-     var xScale = d3.time.scale().domain([x1, x2]).range([xPadding, svgXlen - xPadding]);
-     var yScale = d3.scale.linear().domain([y1,y2]).range([svgYlen-yPadding, yPadding]);
+     var xScale = d3.time.scale().domain([x1, x2]).range([margin.left, width]);
+     var yScale = d3.scale.linear().domain([y1,y2]).range([height, margin.top]);
      var rScale = d3.scale.log().domain([100,1]).range([0.5,10]);
 
      var data = [];
+     var filterInt = 0;
      unfiltered_data.forEach( function (d) {
-          if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
+        if (filterInt%10 == 0) {
+            if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
              (d['High'] !== "0" && d['High'] !== "")) {
                data.push(d);
-     }});
+            }   
+        } 
+        filterInt++;
+    });
 
      var xAxis = d3.svg.axis().scale(xScale);
      svg.append("g").attr("class", "axis").attr("transform", "translate(0, " + yScale(0) + ")").call(xAxis);
@@ -80,7 +84,10 @@ d3.json("data.json", function(error,unfiltered_data) {
          .attr("cx", function(w) {return xScale(new Date(w['Date Peaked']));})
          .attr("cy", function(w) {return yScale(w['Temp 1']);})
          .attr("r", function(p) {return rScale(+p['High']);})
-         .style("fill", function(p){ return chooseColor(p['Genre']);});
+         .style("fill", function(p){ return chooseColor(p['Genre']);})
+         .attr("class", "node animated bounce"); //FUCK CSS AND BULLSHIT HTML
+
+    }); 
 
         //  //Slider
         // $('#slider-range').css('width', (svgXlen-2*xPadding) + 'px');
