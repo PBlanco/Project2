@@ -1,4 +1,35 @@
 $(document).ready(function() {
+
+var color_code = {};
+color_code['Alternative'] = '#000080';
+color_code['Benefit'] = '#808080';
+color_code['Blues'] = '#C0C0C0';
+color_code['Club'] = '#0000FF';
+color_code['Comedy'] = '#008080';
+color_code['Country'] = '#00FFFF';
+color_code['Dance'] = '#800080';
+color_code['Easy'] = '#800000';
+color_code['Electronica'] = '#FF0000';
+color_code['Ensemble'] = '#FF00FF';
+color_code['Folk'] = '#008000';
+color_code['Gospel'] = '#00FF00';
+color_code['Jazz'] = '#808000';
+color_code['Latin'] = '#FFFF00';
+color_code['Newage'] = '#33FF33';
+color_code['Pop'] = '#CC9933';
+color_code['R&B'] = '#CC3366';
+color_code['Rap'] = '#CC0033';
+color_code['Reggae'] = '#999966';
+color_code['Rock'] = '#FF99CC';
+color_code['Singer-Songwriter'] = '#9933CC';
+color_code['Techno'] = '#FFFFCC';
+color_code['Vocal'] = '#99999';
+color_code['World'] = '#009999';
+
+function chooseColor(genre){
+    return color_code[genre];
+}
+
 d3.json("data.json", function(error,unfiltered_data) {
 
      var x1 = new Date("01/01/1990");
@@ -42,6 +73,7 @@ d3.json("data.json", function(error,unfiltered_data) {
      points
          .attr("data-track", function(p) {return p['Track'];})
          .attr("data-artist", function(p) {return p['Artist'];})
+         .attr("data-album", function(p) {return p['Album'];})
          .attr("data-year", function(p) {return p['Year'];})
          .attr("data-entered", function(p) {return p['Date Entered'];})
          .attr("data-peak", function(p) {return p['Date Peaked'];})
@@ -50,12 +82,13 @@ d3.json("data.json", function(error,unfiltered_data) {
          .attr("data-genre", function(p) {return p['Genre'];})
          .attr("data-temp1", function(p) {return p['Temp 1'];})
          .attr("data-yearlyrank", function(p) {return p['Yearly Rank'];})
-         .attr("cx", function(p) {return xScale(new Date(p['Date Peaked']));})
-         .attr("cy", function(p) {return yScale(p['Temp 1']);})
+         .attr("cx", function(w) {return xScale(new Date(w['Date Peaked']));})
+         .attr("cy", function(w) {return yScale(w['Temp 1']);})
          .attr("r", function(p) {return rScale(+p['High']);})
-         .style("fill", function(){ return "black";});
-
+         .style("fill", function(p){ return chooseColor(p['Genre']);});
      }); // dont delete this you boner
+
+
      //*******Graph functionality
      // function writeGraph(){
 
@@ -148,6 +181,10 @@ d3.json("data.json", function(error,unfiltered_data) {
      // }//End Write Graph
 });
 
+// Black or 000000  Gray or 808080  Silver or C0C0C0    White or FFFFFF
+//  Navy or 000080  Blue or 0000FF  Teal or 008080  Aqua or 00FFFF
+//  Purple or 800080    Maroon or 800000    Red or FF0000   Fuschia or FF00FF
+//  Green or 008000     Lime or 00FF00  Olive or 808000     Yellow or FFFF00
 
 // Object {"": 0, Rock: 0, Rap: 0, Country: 0, Newage: 0…}
 // "": 0
