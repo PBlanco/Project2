@@ -20,10 +20,13 @@ p{
 }
 svg { 
 	background-color: #FFFFFF;
+	padding:30px;
 }
 #canvas {
 	display: block; 
 	text-align: center;
+	margin:30px;
+	padding:30px;
 }
 .axis path { 
 	fill: none; 
@@ -31,4 +34,7 @@ svg {
 }
 .axis line { 
 	stroke: black; 
+}
+#slider{
+	margin:auto;
 }

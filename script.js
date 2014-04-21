@@ -1,46 +1,35 @@
 
 $(document).ready(function() {
 
+    var color_code = {};
+    color_code['Alternative'] = '#000080';
+    color_code['Benefit'] = '#808080';
+    color_code['Blues'] = '#C0C0C0';
+    color_code['Club'] = '#0000FF';
+    color_code['Comedy'] = '#008080';
+    color_code['Country'] = '#00FFFF';
+    color_code['Dance'] = '#800080';
+    color_code['Easy'] = '#800000';
+    color_code['Electronica'] = '#FF0000';
+    color_code['Ensemble'] = '#FF00FF';
+    color_code['Folk'] = '#008000';
+    color_code['Gospel'] = '#00FF00';
+    color_code['Jazz'] = '#808000';
+    color_code['Latin'] = '#FFFF00';
+    color_code['Newage'] = '#33FF33';
+    color_code['Pop'] = '#CC9933';
+    color_code['R&B'] = '#CC3366';
+    color_code['Rap'] = '#CC0033';
+    color_code['Reggae'] = '#999966';
+    color_code['Rock'] = '#FF99CC';
+    color_code['Singer-Songwriter'] = '#9933CC';
+    color_code['Techno'] = '#FFFFCC';
+    color_code['Vocal'] = '#99999';
+    color_code['World'] = '#009999';
 
- $(function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 1990,
-      max: 2014,
-      values: [ 1990, 2014 ],
-      slide: function( event, ui ) { return 0;}
-    });
- });
-
-var color_code = {};
-color_code['Alternative'] = '#000080';
-color_code['Benefit'] = '#808080';
-color_code['Blues'] = '#C0C0C0';
-color_code['Club'] = '#0000FF';
-color_code['Comedy'] = '#008080';
-color_code['Country'] = '#00FFFF';
-color_code['Dance'] = '#800080';
-color_code['Easy'] = '#800000';
-color_code['Electronica'] = '#FF0000';
-color_code['Ensemble'] = '#FF00FF';
-color_code['Folk'] = '#008000';
-color_code['Gospel'] = '#00FF00';
-color_code['Jazz'] = '#808000';
-color_code['Latin'] = '#FFFF00';
-color_code['Newage'] = '#33FF33';
-color_code['Pop'] = '#CC9933';
-color_code['R&B'] = '#CC3366';
-color_code['Rap'] = '#CC0033';
-color_code['Reggae'] = '#999966';
-color_code['Rock'] = '#FF99CC';
-color_code['Singer-Songwriter'] = '#9933CC';
-color_code['Techno'] = '#FFFFCC';
-color_code['Vocal'] = '#99999';
-color_code['World'] = '#009999';
-
-function chooseColor(genre){
-    return color_code[genre];
-}
+    function chooseColor(genre){
+        return color_code[genre];
+    }
 
 d3.json("data.json", function(error,unfiltered_data) {
 
@@ -93,9 +82,45 @@ d3.json("data.json", function(error,unfiltered_data) {
          .attr("r", function(p) {return rScale(+p['High']);})
          .style("fill", function(p){ return chooseColor(p['Genre']);});
 
+        //  //Slider
+        // $('#slider-range').css('width', (svgXlen-2*xPadding) + 'px');
+        // $( "#slider-range" ).slider({
+        //   range: true,
+        //   min: 0,
+        //   max: 500,
+        //   values: [ 75, 300 ],
+        //   slide: function( event, ui ) {
+        //     $( "#date_range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        //   }
+        // });
 
-     }); // dont delete this you boner
+        // $( "#date_range" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+        //   " - " + $( "#slider-range" ).slider( "values", 1 ) );
+        
+        $('#slider').css('width', (svgXlen-2*xPadding) + 'px');
+        $("#slider").dateRangeSlider({
+          bounds:{
+            min: x1,
+            max: x2
+          },
+          defaultValues:{
+            min: x1,
+            max: x2
+          }
+        });
+        $('#submit').on('click', function(){
+            // Date slider
+            var dateSliderMin = $("#slider").dateRangeSlider("min");
+            var dateSliderMax = $("#slider").dateRangeSlider("max");
+            console.log(dateSliderMin);
+            console.log(dateSliderMax);
+        });
 
+
+
+     }); // end d3.json
+
+});//end document
 
      //*******Graph functionality
      // function writeGraph(){
@@ -187,7 +212,7 @@ d3.json("data.json", function(error,unfiltered_data) {
      //     });
 
      // }//End Write Graph
-});
+
 
 // Black or 000000  Gray or 808080  Silver or C0C0C0    White or FFFFFF
 //  Navy or 000080  Blue or 0000FF  Teal or 008080  Aqua or 00FFFF
