@@ -42,12 +42,16 @@ d3.json("data.json", function(error,unfiltered_data) {
      var svgYlen = 800;
      var xPadding = 50;
      var yPadding = 20;
+
+     var margin = {top: 20, right: 20, bottom: 40, left: 60},
+    width = 1050 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
      
      //create the svg 
-     var svg = d3.select("#canvas").append("svg").attr("height", svgYlen).attr("width", svgXlen);
+     var svg = d3.select("#canvas").append("svg").attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
 
-     var xScale = d3.time.scale().domain([x1, x2]).range([xPadding, svgXlen - xPadding]);
-     var yScale = d3.scale.linear().domain([y1,y2]).range([svgYlen-yPadding, yPadding]);
+     var xScale = d3.time.scale().domain([x1, x2]).range([margin.left, width]);
+     var yScale = d3.scale.linear().domain([y1,y2]).range([height, margin.top]);
      var rScale = d3.scale.log().domain([100,1]).range([0.5,10]);
 
      var data = [];
