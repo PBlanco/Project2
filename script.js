@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
     var color_code = {};
@@ -85,26 +84,10 @@ d3.json("data.json", function(error,unfiltered_data) {
          .attr("cy", function(w) {return yScale(w['Temp 1']);})
          .attr("r", function(p) {return rScale(+p['High']);})
          .style("fill", function(p){ return chooseColor(p['Genre']);})
-         .attr("class", "node animated bounce"); //FUCK CSS AND BULLSHIT HTML
+         .attr("class", "node"); 
 
-    }); 
-
-        //  //Slider
-        // $('#slider-range').css('width', (svgXlen-2*xPadding) + 'px');
-        // $( "#slider-range" ).slider({
-        //   range: true,
-        //   min: 0,
-        //   max: 500,
-        //   values: [ 75, 300 ],
-        //   slide: function( event, ui ) {
-        //     $( "#date_range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        //   }
-        // });
-
-        // $( "#date_range" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-        //   " - " + $( "#slider-range" ).slider( "values", 1 ) );
-        
-        $('#slider').css('width', (svgXlen-2*xPadding) + 'px');
+        //Write Slider
+        $('#slider').css('width', width + 'px');
         $("#slider").dateRangeSlider({
           bounds:{
             min: x1,
@@ -115,6 +98,7 @@ d3.json("data.json", function(error,unfiltered_data) {
             max: x2
           }
         });
+        //Test Slider values
         $('#submit').on('click', function(){
             // Date slider
             var dateSliderMin = $("#slider").dateRangeSlider("min");
@@ -123,7 +107,19 @@ d3.json("data.json", function(error,unfiltered_data) {
             console.log(dateSliderMax);
         });
 
+        $('.node')
+            .mouseover(function(){
+                var node = $(this);
+                node.attr('class', 'node animated bounce');
+                window.setTimeout(removeClass, 2000);
 
+                function removeClass(){
+                   node.attr('class', 'node'); 
+                } 
+            });
+            // .mouseout(function(){
+            //     ;
+            // });
 
      }); // end d3.json
 
