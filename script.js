@@ -96,25 +96,10 @@ d3.json("data.json", function(error,unfiltered_data) {
          .attr("cy", function(w) {return yScale(w['Temp 1']);})
          .attr("r", function(p) {return rScale(+p['High']);})
          .style("fill", function(p){ return chooseColor(p['Genre']);})
-         .attr("class", "node");
-     }); 
+         .attr("class", "node animated bounce"); //FUCK CSS AND BULLSHIT HTML
 
-    function animationClick(element, animation){
-    element = $(element);
-    element.click(
-        function() {
-            element.addClass('animated ' + animation);        
-            //wait for animation to finish before removing classes
-            window.setTimeout( function(){
-                element.removeClass('animated ' + animation);
-            }, 2000);         
-  
-        });
-    }
+    }); 
 
-    $('.node').each(function() {
-        animationHover(this, 'bounce');
-    });
 
      // dont delete this you boner
 
