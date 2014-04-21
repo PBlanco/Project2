@@ -1,7 +1,6 @@
 $(document).ready(function() {
 d3.json("data.json", function(error,unfiltered_data) {
 
-     var colors = {};
      var x1 = new Date("01/01/1990");
      var x2 = new Date("04/01/2014");
 
@@ -16,16 +15,22 @@ d3.json("data.json", function(error,unfiltered_data) {
      //create the svg 
      var svg = d3.select("#canvas").append("svg").attr("height", svgYlen).attr("width", svgXlen);
 
+     // create the slider
+     d3.select('#slider').call(d3.slider().axis(true).value([10,25]).on("slide", function(evt, value) {
+          // filter the points
+          // change the axis
+     }));
+
      var xScale = d3.time.scale().domain([x1, x2]).range([xPadding, svgXlen - xPadding]);
      var yScale = d3.scale.linear().domain([y1,y2]).range([svgYlen-yPadding, yPadding]);
+     var rScale = d3.scale.log().domain([100,1]).range([0.5,10]);
 
      var data = [];
      unfiltered_data.forEach( function (d) {
-          if(!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) )) {
+          if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
+             (d['High'] !== "0" && d['High'] !== "")) {
                data.push(d);
-               colors[d['Genre']] = 0;
      }});
-     console.log(colors);
 
      var xAxis = d3.svg.axis().scale(xScale);
      svg.append("g").attr("class", "axis").attr("transform", "translate(0, " + yScale(0) + ")").call(xAxis);
@@ -40,15 +45,15 @@ d3.json("data.json", function(error,unfiltered_data) {
          .attr("data-year", function(p) {return p['Year'];})
          .attr("data-entered", function(p) {return p['Date Entered'];})
          .attr("data-peak", function(p) {return p['Date Peaked'];})
-         .attr("data-pk", function(p) {return p['PK'];})
+         .attr("data-high", function(p) {return p['High'];})
          .attr("data-time", function(p) {return p['Time'];})
          .attr("data-genre", function(p) {return p['Genre'];})
          .attr("data-temp1", function(p) {return p['Temp 1'];})
          .attr("data-yearlyrank", function(p) {return p['Yearly Rank'];})
-         .attr("cx", function(w) {return xScale(new Date(w['Date Peaked']));})
-         .attr("cy", function(w) {return yScale(w['Temp 1']);})
-         .attr("r", function(p) {return 5;})
-         .style("fill", function(w){ return "black";});
+         .attr("cx", function(p) {return xScale(new Date(p['Date Peaked']));})
+         .attr("cy", function(p) {return yScale(p['Temp 1']);})
+         .attr("r", function(p) {return rScale(+p['High']);})
+         .style("fill", function(){ return "black";});
 
      }); // dont delete this you boner
      //*******Graph functionality
@@ -154,7 +159,7 @@ d3.json("data.json", function(error,unfiltered_data) {
 // Country: 0
 // Dance: 0
 // Easy: 0
-// Electronica: 0
+// Electronica: 0 
 // Ensemble: 0
 // Folk: 0
 // Gospel: 0
