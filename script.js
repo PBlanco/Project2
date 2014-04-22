@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    var pageLoadStartDate = new Date("01/01/1990");
+    var pageLoadEndDate = new Date("04/01/2014");
+    writeGraph(pageLoadStartDate, pageLoadEndDate);
 
     var color_code = {};
     color_code['Alternative'] = '#000080';
@@ -30,98 +33,125 @@ $(document).ready(function() {
         return color_code[genre];
     }
 
-d3.json("data.json", function(error,unfiltered_data) {
+    function writeGraph(startDate, endDate){
+        d3.json("data.json", function(error,unfiltered_data) {
 
-     var x1 = new Date("01/01/1990");
-     var x2 = new Date("04/01/2014");
+             var x1 = startDate;
+             var x2 = endDate;
 
-     var y1 = d3.min(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
-     var y2 = d3.max(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
+             var y1 = d3.min(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
+             var y2 = d3.max(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
 
-     var margin = {top: 20, right: 20, bottom: 40, left: 60};
-     var width = 1050 - margin.left - margin.right;
-     var height = 800 - margin.top - margin.bottom;
-     
-     //create the svg 
-     var svg = d3.select("#canvas").append("svg").attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
+             var margin = {top: 20, right: 20, bottom: 40, left: 60};
+             var width = 1050 - margin.left - margin.right;
+             var height = 800 - margin.top - margin.bottom;
+             
+             //create the svg 
+             var svg = d3.select("#canvas").append("svg").attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
 
-     var xScale = d3.time.scale().domain([x1, x2]).range([margin.left, width]);
-     var yScale = d3.scale.linear().domain([y1,y2]).range([height, margin.top]);
-     var rScale = d3.scale.log().domain([100,1]).range([0.5,10]);
+             var xScale = d3.time.scale().domain([x1, x2]).range([margin.left, width]);
+             var yScale = d3.scale.linear().domain([y1,y2]).range([height, margin.top]);
+             var rScale = d3.scale.log().domain([100,1]).range([0.5,10]);
 
-     var data = [];
-     var filterInt = 0;
-     unfiltered_data.forEach( function (d) {
-        if (filterInt%10 == 0) {
-            if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
-             (d['High'] !== "0" && d['High'] !== "")) {
-               data.push(d);
-            }   
-        } 
-        filterInt++;
-    });
-
-     var xAxis = d3.svg.axis().scale(xScale);
-     svg.append("g").attr("class", "axis").attr("transform", "translate(0, " + yScale(0) + ")").call(xAxis);
-     var yAxis = d3.svg.axis().scale(yScale).orient("left");
-     svg.append("g").attr("class", "axis").attr("transform", "translate(" + xScale(x1) + ", 0)").call(yAxis);
-
-     var points = svg.selectAll("circle").data(data).enter().append("circle");
-
-     points
-         .attr("data-track", function(p) {return p['Track'];})
-         .attr("data-artist", function(p) {return p['Artist'];})
-         .attr("data-album", function(p) {return p['Album'];})
-         .attr("data-year", function(p) {return p['Year'];})
-         .attr("data-entered", function(p) {return p['Date Entered'];})
-         .attr("data-peak", function(p) {return p['Date Peaked'];})
-         .attr("data-high", function(p) {return p['High'];})
-         .attr("data-time", function(p) {return p['Time'];})
-         .attr("data-genre", function(p) {return p['Genre'];})
-         .attr("data-temp1", function(p) {return p['Temp 1'];})
-         .attr("data-yearlyrank", function(p) {return p['Yearly Rank'];})
-         .attr("cx", function(w) {return xScale(new Date(w['Date Peaked']));})
-         .attr("cy", function(w) {return yScale(w['Temp 1']);})
-         .attr("r", function(p) {return rScale(+p['High']);})
-         .style("fill", function(p){ return chooseColor(p['Genre']);})
-         .attr("class", "node"); 
-
-        //Write Slider
-        $('#slider').css('width', width + 'px');
-        $("#slider").dateRangeSlider({
-          bounds:{
-            min: x1,
-            max: x2
-          },
-          defaultValues:{
-            min: x1,
-            max: x2
-          }
-        });
-        //Test Slider values
-        $('#submit').on('click', function(){
-            // Date slider
-            var dateSliderMin = $("#slider").dateRangeSlider("min");
-            var dateSliderMax = $("#slider").dateRangeSlider("max");
-            console.log(dateSliderMin);
-            console.log(dateSliderMax);
-        });
-
-        $('.node')
-            .mouseover(function(){
-                var node = $(this);
-                node.attr('class', 'node animated bounce');
-                window.setTimeout(removeClass, 2000);
-
-                function removeClass(){
-                   node.attr('class', 'node'); 
+             var data = [];
+             var filterInt = 0;
+             unfiltered_data.forEach( function (d) {
+                if (filterInt%10 == 0) {
+                    if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
+                     (d['High'] !== "0" && d['High'] !== "") && ((xScale(new Date(d['Date Peaked'])>xScale(new Date(x1)))) && (xScale(new Date(d['Date Peaked'])<xScale(new Date(x2))))) ) {
+                       data.push(d);
+                    }   
                 } 
+                filterInt++;
             });
-            // .mouseout(function(){
-            //     ;
-            // });
 
-     }); // end d3.json
+             var xAxis = d3.svg.axis().scale(xScale);
+             svg.append("g").attr("class", "axis").attr("transform", "translate(0, " + yScale(0) + ")").call(xAxis);
+             var yAxis = d3.svg.axis().scale(yScale).orient("left");
+             svg.append("g").attr("class", "axis").attr("transform", "translate(" + xScale(x1) + ", 0)").call(yAxis);
+
+             var points = svg.selectAll("circle").data(data).enter().append("circle");
+
+             points
+                 .attr("data-track", function(p) {return p['Track'];})
+                 .attr("data-artist", function(p) {return p['Artist'];})
+                 .attr("data-album", function(p) {return p['Album'];})
+                 .attr("data-year", function(p) {return p['Year'];})
+                 .attr("data-entered", function(p) {return p['Date Entered'];})
+                 .attr("data-peak", function(p) {return p['Date Peaked'];})
+                 .attr("data-high", function(p) {return p['High'];})
+                 .attr("data-time", function(p) {return p['Time'];})
+                 .attr("data-genre", function(p) {return p['Genre'];})
+                 .attr("data-temp1", function(p) {return p['Temp 1'];})
+                 .attr("data-yearlyrank", function(p) {return p['Yearly Rank'];})
+                 .attr("cx", function(w) {return xScale(new Date(w['Date Peaked']));})
+                 .attr("cy", function(w) {return yScale(w['Temp 1']);})
+                 .attr("r", function(p) {return rScale(+p['High']);})
+                 .style("fill", function(p){ return chooseColor(p['Genre']);})
+                 .attr("class", "node"); 
+
+                //Write Slider
+                $('#slider').css('width', width + 'px');
+                $("#slider").dateRangeSlider({
+                  bounds:{
+                    min: x1,
+                    max: x2
+                  },
+                  defaultValues:{
+                    min: x1,
+                    max: x2
+                  }
+                });
+                //Test Slider values
+                $('#submit').on('click', function(e){
+                    e.preventDefault();
+                    // Date slider
+                    var dateSliderMin = $("#slider").dateRangeSlider("min");
+                    var dateSliderMax = $("#slider").dateRangeSlider("max");
+                    // console.log(dateSliderMin);
+                    // console.log(dateSliderMax);
+                    var element = document.getElementById("canvas");
+                    while (element.firstChild) {
+                        element.removeChild(element.firstChild);
+                    }
+                    writeGraph(dateSliderMax, dateSliderMin);
+                });
+
+                $('.node').mouseover(function(){
+                    var node = $(this);
+                    node.attr('class', 'node animated bounce');
+                    window.setTimeout(removeClass, 2000);
+                    function removeClass(){
+                       node.attr('class', 'node'); 
+                    } 
+                });
+
+                //Hide all nodes not of same artist
+                $('.node').on('click', function(){
+                    var artist = $(this).data('artist');
+                    var artist_nodes = $(".node[data-artist='" + artist + "']");
+                    $('.node').attr('visibility', 'hidden');
+                    artist_nodes.attr('visibility', 'visibile');
+                });
+
+                // $('.node').on('mouseenter mouseleave', function(){
+                //     $(this).toggleClass('large');
+                //     console.log($(this).html());
+                // });
+    
+                // $('.node').on('mouseenter', function(){
+                //     var node = $(this);
+                //     var initial_radius = node.attr('r');
+                //     node.attr('r', rScale(40));
+                //     revertNode(node, initial_radius);
+                // });
+
+                // function revertNode(node, initial_radius){
+                //     node.attr('r', initial_radius);
+                // }
+
+             }); // end d3.json
+    }//end writeGraph
 
 });//end document
 
