@@ -110,10 +110,7 @@ $(document).ready(function() {
                     var dateSliderMax = $("#slider").dateRangeSlider("max");
                     // console.log(dateSliderMin);
                     // console.log(dateSliderMax);
-                    var element = document.getElementById("canvas");
-                    while (element.firstChild) {
-                        element.removeChild(element.firstChild);
-                    }
+                    $('#canvas').empty();
                     writeGraph(dateSliderMax, dateSliderMin);
                 });
 
@@ -132,6 +129,11 @@ $(document).ready(function() {
                     var artist_nodes = $(".node[data-artist='" + artist + "']");
                     $('.node').attr('visibility', 'hidden');
                     artist_nodes.attr('visibility', 'visibile');
+                });
+
+                //Reset and show all nodes again
+                $('#reset_nodes').on('click', function(){
+                    $('.node').attr('visibility', 'visibile');
                 });
 
                 // $('.node').on('mouseenter mouseleave', function(){
