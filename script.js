@@ -42,7 +42,7 @@ $(document).ready(function() {
              var y1 = d3.min(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
              var y2 = d3.max(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
 
-             var margin = {top: 20, right: 20, bottom: 40, left: 60};
+             var margin = {top: 20, right: 20, bottom: 40, left: 20};
              var width = 1050 - margin.left - margin.right;
              var height = 800 - margin.top - margin.bottom;
              
@@ -58,7 +58,7 @@ $(document).ready(function() {
              unfiltered_data.forEach( function (d) {
                 if (filterInt%10 == 0) {
                     if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
-                     (d['High'] !== "0" && d['High'] !== "") && ((xScale(new Date(d['Date Peaked'])>xScale(new Date(x1)))) && (xScale(new Date(d['Date Peaked'])<xScale(new Date(x2))))) ) {
+                     (d['High'] !== "0" && d['High'] !== "") && ((xScale(new Date(d['Date Peaked'])>xScale(new Date(x1)))) && (xScale(new Date(d['Date Peaked'])<xScale(new Date(x2))))) ) { //If dot less tha either of the x ranges, dont include it (Still not working)
                        data.push(d);
                     }   
                 } 

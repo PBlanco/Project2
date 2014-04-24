@@ -1,27 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Music of the Ages</title>
 
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
         <link rel="stylesheet" href="iThing-min.css" type="text/css" />
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
         <script src="jQDateRangeSlider-min.js"></script>
         
-
+        <link rel="stylesheet" href="css/foundation.css" />
+        <script src="js/vendor/modernizr.js"></script>
+        
         <link rel="stylesheet" href="animate.min.css">
 
         <script src='script.js'></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
+
+        
         <!--This script for your on hover dialog peter breaks everything else -->
         <!--<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>-->
     </head>
+
+
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    
+
+
     <body>
-        <div class="adjustDate" id='reset_nodes'>Reset Nodes</div>
-        <div id='canvas'></div>
-        <div id="slider"></div>
-        <div href="#" class="adjustDate" id='submit'>Redraw Graph</div>
+        <div class='row'>
+            <div class='large-12 columns'>
+                <div class='row'>
+                    <div class='large-2 columns'>
+                        <div class="button" id='reset_nodes'>Reset Nodes</div>
+                    </div
+                </div>
+                <div class='row'>
+                    <div class='large-12 columns'>
+                        <div id='canvas'></div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='large-12 columns'>
+                        <div id="slider"></div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='large-2 columns'>    
+                        <div href="#" class="button" id='submit'>Redraw Graph</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
     </body>
 </html>
