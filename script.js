@@ -108,8 +108,6 @@ $(document).ready(function() {
                     // Date slider
                     var dateSliderMin = $("#slider").dateRangeSlider("min");
                     var dateSliderMax = $("#slider").dateRangeSlider("max");
-                    // console.log(dateSliderMin);
-                    // console.log(dateSliderMax);
                     $('#canvas').empty();
                     writeGraph(dateSliderMax, dateSliderMin);
                 });
@@ -124,12 +122,7 @@ $(document).ready(function() {
                 });
 
                 //add popupbox
-                var popupBox = d3.select("body")
-                  .append("div")
-                  .style("position", "absolute")
-                  .style("z-index", "10")
-                  .style("visibility", "hidden")
-                  .text("Alex doesn't even lift bro");
+                var popupBox = $('#popupBox');
 
                 //Hide all nodes not of same artist
                 var node_clicked = false;
@@ -143,8 +136,32 @@ $(document).ready(function() {
                     $('.node').attr('visibility', 'hidden');
                     artist_nodes.attr('visibility', 'visibile');
 
-                    popupBox.style("visibility", "visible");
-                    popupBox.style("top", (e.clientY-10)+"px").style("left",(e.clientX+10)+"px");
+                    $('#name').empty();
+                    $('#name').append($(this).data('track'));
+                    $('#artist').empty();
+                    $('#artist').append($(this).data('artist'));
+                    $('#genre').empty();
+                    $('#genre').append($(this).data('genre'));
+                    $('#album').empty();
+                    $('#album').append($(this).data('album'));
+                    $('#year').empty();
+                    $('#year').append($(this).data('year'));
+                    $('#peak').empty();
+                    $('#peak').append($(this).data('peak'));
+                    $('#high').empty();
+                    $('#high').append($(this).data('high'));
+                    $('#length').empty();
+                    $('#length').append($(this).data('length'));
+                    $('#temp1').empty();
+                    $('#temp1').append($(this).data('temp1'));
+                    $('#yearlyrank').empty();
+                    $('#yearlyrank').append($(this).data('yearlyrank'));
+
+
+
+
+                    popupBox.show();
+                    popupBox.attr("top", (e.clientY-10)+"px").attr("left",(e.clientX+10)+"px");
                 
                     setTimeout(changeStatus, 2000);
                 });
@@ -152,7 +169,7 @@ $(document).ready(function() {
                 //Reset and show all nodes again
                 function resetNodes() {
                     $('.node').attr('visibility', 'visibile');
-                    popupBox.style("visibility", "hidden");
+                    popupBox.hide();
                 }
 
                 $('#reset_nodes').on('click', function(){
