@@ -43,7 +43,7 @@ $(document).ready(function() {
              var y2 = d3.max(unfiltered_data, function(entry) { return +entry["Temp 1"]; });
 
              var margin = {top: 20, right: 20, bottom: 40, left: 20};
-             var width = 1050 - margin.left - margin.right;
+             var width = 1000 - margin.left - margin.right;
              var height = 800 - margin.top - margin.bottom;
              
              //create the svg 
@@ -135,22 +135,6 @@ $(document).ready(function() {
                 $('#reset_nodes').on('click', function(){
                     $('.node').attr('visibility', 'visibile');
                 });
-
-                // $('.node').on('mouseenter mouseleave', function(){
-                //     $(this).toggleClass('large');
-                //     console.log($(this).html());
-                // });
-    
-                // $('.node').on('mouseenter', function(){
-                //     var node = $(this);
-                //     var initial_radius = node.attr('r');
-                //     node.attr('r', rScale(40));
-                //     revertNode(node, initial_radius);
-                // });
-
-                // function revertNode(node, initial_radius){
-                //     node.attr('r', initial_radius);
-                // }
 
              }); // end d3.json
     }//end writeGraph

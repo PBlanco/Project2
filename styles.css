@@ -20,7 +20,7 @@ p{
 }
 svg { 
 	background-color: #FFFFFF;
-	padding:30px;
+	padding: 30px;
 }
 #canvas {
 	display: block; 
@@ -48,6 +48,6 @@ svg {
 	r:100px;
 }
 .button{
-	margin:20px;
+	margin:20px 0 20px 0;
 }
 /*var margin = {top: 20, right: 20, bottom: 40, left: 60};*/

@@ -10,36 +10,44 @@
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
         <script src="jQDateRangeSlider-min.js"></script>
-        
         <link rel="stylesheet" href="css/foundation.css" />
         <script src="js/vendor/modernizr.js"></script>
-        
         <link rel="stylesheet" href="animate.min.css">
-
         <script src='script.js'></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
-
-        
-        <!--This script for your on hover dialog peter breaks everything else -->
-        <!--<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>-->
     </head>
 
-
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation | Welcome</title>
-    
-
-
     <body>
+        <div class="contain-to-grid">
+            <nav class="top-bar" data-topbar>
+              <ul class="title-area">
+                <li class="name">
+                  <h1><a href="#">Music of the Ages</a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+              </ul>
+
+              <section class="top-bar-section">
+                <!-- Right Nav Section -->
+                <ul class="right">
+                  <li class="active"><a href='#' id='reset_nodes'>Reset Nodes</a></li>
+                  <li class="active"><a href-'#' id='submit'>Redraw Graph</a></li>
+                </ul>
+
+                <!-- Left Nav Section -->
+                <ul class="left">
+                  <li><a href='#'>By Peter Blanco, Demitri Tzitzon, Alex Meyers</a></li>
+                </ul>
+              </section>
+            </nav>
+        </div>
+
         <div class='row'>
             <div class='large-12 columns'>
                 <div class='row'>
                     <div class='large-2 columns'>
-                        <div class="button" id='reset_nodes'>Reset Nodes</div>
-                    </div
+                        
+                    </div>
                 </div>
                 <div class='row'>
                     <div class='large-12 columns'>
@@ -49,14 +57,14 @@
                 <div class='row'>
                     <div class='large-12 columns'>
                         <div id="slider"></div>
-                    </div>
-                </div>
+                    </div><!--12 cols-->
+                </div><!--row-->
                 <div class='row'>
                     <div class='large-2 columns'>    
-                        <div href="#" class="button" id='submit'>Redraw Graph</div>
-                    </div>
-                </div>
-            </div>
+                        
+                    </div><!--2 cols-->
+                </div><!--row-->
+            </div><!--12 cols-->
         </div>
 
         <script src="js/foundation.min.js"></script>
