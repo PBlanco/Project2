@@ -57,8 +57,9 @@ $(document).ready(function() {
              var filterInt = 0;
              unfiltered_data.forEach( function (d) {
                 if (filterInt%10 == 0) {
-                    if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
-                     (d['High'] !== "0" && d['High'] !== "") && ((xScale(new Date(d['Date Peaked'])>xScale(new Date(x1)))) && (xScale(new Date(d['Date Peaked'])<xScale(new Date(x2))))) ) { //If dot less tha either of the x ranges, dont include it (Still not working)
+                    if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) && 
+                     (d['High'] !== "0" && d['High'] !== "") && 
+                     (new Date(d['Date Peaked']) > new Date(startDate) && new Date(d['Date Peaked']) < new Date(endDate))) { 
                        data.push(d);
                     }   
                 } 
@@ -102,15 +103,7 @@ $(document).ready(function() {
                     max: x2
                   }
                 });
-                //Test Slider values
-                $('#submit').on('click', function(e){
-                    e.preventDefault();
-                    // Date slider
-                    var dateSliderMin = $("#slider").dateRangeSlider("min");
-                    var dateSliderMax = $("#slider").dateRangeSlider("max");
-                    $('#canvas').empty();
-                    writeGraph(dateSliderMax, dateSliderMin);
-                });
+
 
                 $('.node').mouseover(function(){
                     var node = $(this);
@@ -157,9 +150,6 @@ $(document).ready(function() {
                     $('#yearlyrank').empty();
                     $('#yearlyrank').append($(this).data('yearlyrank'));
 
-
-
-
                     popupBox.show();
                     popupBox.attr("top", (e.clientY-10)+"px").attr("left",(e.clientX+10)+"px");
                 
@@ -191,6 +181,46 @@ $(document).ready(function() {
         alert("Do the Harlem Shake! The music can't be stopped!");
     });
 
+   $('#submit').on('click', function(e){
+        e.preventDefault();
+        // Date slider
+        var dateSliderMin = $("#slider").dateRangeSlider("min");
+        var dateSliderMax = $("#slider").dateRangeSlider("max");
+        // console.log(dateSliderMin);
+        // console.log(dateSliderMax);
+        $('#canvas').empty();
+        writeGraph(dateSliderMin, dateSliderMax);
+    });
+
+	//Hide all nodes not of same artist
+    var node_clicked = false;
+    function changeStatus(){
+        node_clicked = !node_clicked;
+    }
+
+    //Reset and show all nodes again
+    function resetNodes() {
+        $('.node').attr('visibility', 'visibile');
+        popupBox.style("visibility", "hidden");
+    }
+
+    $('#reset_nodes').on('click', function(){
+        resetNodes();
+    });
+    $('body').on('click', function(){
+        if(node_clicked === true){
+            resetNodes();
+            setTimeout(changeStatus, 2000);
+        }
+    });
+
+    //add popupbox
+    var popupBox = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .text("Alex doesn't even lift bro");
 });//end document
 
      //*******Graph functionality
