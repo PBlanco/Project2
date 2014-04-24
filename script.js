@@ -132,24 +132,47 @@ $(document).ready(function() {
                   .text("Alex doesn't even lift bro");
 
                 //Hide all nodes not of same artist
+                var node_clicked = false;
+                function changeStatus(){
+                    node_clicked = !node_clicked;
+                }
+                
                 $('.node').on('click', function(e){
                     var artist = $(this).data('artist');
                     var artist_nodes = $(".node[data-artist='" + artist + "']");
                     $('.node').attr('visibility', 'hidden');
                     artist_nodes.attr('visibility', 'visibile');
 
-
                     popupBox.style("visibility", "visible");
                     popupBox.style("top", (e.clientY-10)+"px").style("left",(e.clientX+10)+"px");
+                
+                    setTimeout(changeStatus, 2000);
                 });
 
                 //Reset and show all nodes again
-                $('#reset_nodes').on('click', function(){
+                function resetNodes() {
                     $('.node').attr('visibility', 'visibile');
+                    popupBox.style("visibility", "hidden");
+                }
+
+                $('#reset_nodes').on('click', function(){
+                    resetNodes();
+                });
+                $('body').on('click', function(){
+                    if(node_clicked === true){
+                        resetNodes();
+                        setTimeout(changeStatus, 2000);
+                    }
                 });
 
              }); // end d3.json
     }//end writeGraph
+
+    $('#home').on('click', function(){
+        var audio = document.getElementById("audio");
+        audio.play();
+        alert("Do the Harlem Shake! The music can't be stopped!");
+    });
 
 });//end document
 
