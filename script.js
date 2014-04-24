@@ -123,12 +123,24 @@ $(document).ready(function() {
                     } 
                 });
 
+                //add popupbox
+                var popupBox = d3.select("body")
+                  .append("div")
+                  .style("position", "absolute")
+                  .style("z-index", "10")
+                  .style("visibility", "hidden")
+                  .text("Alex doesn't even lift bro");
+
                 //Hide all nodes not of same artist
-                $('.node').on('click', function(){
+                $('.node').on('click', function(e){
                     var artist = $(this).data('artist');
                     var artist_nodes = $(".node[data-artist='" + artist + "']");
                     $('.node').attr('visibility', 'hidden');
                     artist_nodes.attr('visibility', 'visibile');
+
+
+                    popupBox.style("visibility", "visible");
+                    popupBox.style("top", (e.clientY-10)+"px").style("left",(e.clientX+10)+"px");
                 });
 
                 //Reset and show all nodes again
