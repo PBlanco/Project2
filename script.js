@@ -57,8 +57,9 @@ $(document).ready(function() {
              var filterInt = 0;
              unfiltered_data.forEach( function (d) {
                 if (filterInt%10 == 0) {
-                    if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) &&
-                     (d['High'] !== "0" && d['High'] !== "") && ((xScale(new Date(d['Date Peaked'])>xScale(new Date(x1)))) && (xScale(new Date(d['Date Peaked'])<xScale(new Date(x2))))) ) { //If dot less tha either of the x ranges, dont include it (Still not working)
+                    if (!( isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1'])) ) && 
+                     (d['High'] !== "0" && d['High'] !== "") && 
+                     (new Date(d['Date Peaked']) > new Date(startDate) && new Date(d['Date Peaked']) < new Date(endDate))) { 
                        data.push(d);
                     }   
                 } 
@@ -102,69 +103,6 @@ $(document).ready(function() {
                     max: x2
                   }
                 });
-                //Test Slider values
-                $('#submit').on('click', function(e){
-                    e.preventDefault();
-                    // Date slider
-                    var dateSliderMin = $("#slider").dateRangeSlider("min");
-                    var dateSliderMax = $("#slider").dateRangeSlider("max");
-                    // console.log(dateSliderMin);
-                    // console.log(dateSliderMax);
-                    $('#canvas').empty();
-                    writeGraph(dateSliderMax, dateSliderMin);
-                });
-
-                $('.node').mouseover(function(){
-                    var node = $(this);
-                    node.attr('class', 'node animated bounce');
-                    window.setTimeout(removeClass, 2000);
-                    function removeClass(){
-                       node.attr('class', 'node'); 
-                    } 
-                });
-
-                //add popupbox
-                var popupBox = d3.select("body")
-                  .append("div")
-                  .style("position", "absolute")
-                  .style("z-index", "10")
-                  .style("visibility", "hidden")
-                  .text("Alex doesn't even lift bro");
-
-                //Hide all nodes not of same artist
-                var node_clicked = false;
-                function changeStatus(){
-                    node_clicked = !node_clicked;
-                }
-                
-                $('.node').on('click', function(e){
-                    var artist = $(this).data('artist');
-                    var artist_nodes = $(".node[data-artist='" + artist + "']");
-                    $('.node').attr('visibility', 'hidden');
-                    artist_nodes.attr('visibility', 'visibile');
-
-                    popupBox.style("visibility", "visible");
-                    popupBox.style("top", (e.clientY-10)+"px").style("left",(e.clientX+10)+"px");
-                
-                    setTimeout(changeStatus, 2000);
-                });
-
-                //Reset and show all nodes again
-                function resetNodes() {
-                    $('.node').attr('visibility', 'visibile');
-                    popupBox.style("visibility", "hidden");
-                }
-
-                $('#reset_nodes').on('click', function(){
-                    resetNodes();
-                });
-                $('body').on('click', function(){
-                    if(node_clicked === true){
-                        resetNodes();
-                        setTimeout(changeStatus, 2000);
-                    }
-                });
-
              }); // end d3.json
     }//end writeGraph
 
@@ -174,6 +112,67 @@ $(document).ready(function() {
         alert("Do the Harlem Shake! The music can't be stopped!");
     });
 
+   $('#submit').on('click', function(e){
+        e.preventDefault();
+        // Date slider
+        var dateSliderMin = $("#slider").dateRangeSlider("min");
+        var dateSliderMax = $("#slider").dateRangeSlider("max");
+        // console.log(dateSliderMin);
+        // console.log(dateSliderMax);
+        $('#canvas').empty();
+        writeGraph(dateSliderMin, dateSliderMax);
+    });
+
+	//Hide all nodes not of same artist
+    var node_clicked = false;
+    function changeStatus(){
+        node_clicked = !node_clicked;
+    }
+    
+    $('.node').on('click', function(e){
+        var artist = $(this).data('artist');
+        var artist_nodes = $(".node[data-artist='" + artist + "']");
+        $('.node').attr('visibility', 'hidden');
+        artist_nodes.attr('visibility', 'visibile');
+
+        popupBox.style("visibility", "visible");
+        popupBox.style("top", (e.clientY-10)+"px").style("left",(e.clientX+10)+"px");
+    
+        setTimeout(changeStatus, 2000);
+    });
+
+    //Reset and show all nodes again
+    function resetNodes() {
+        $('.node').attr('visibility', 'visibile');
+        popupBox.style("visibility", "hidden");
+    }
+
+    $('#reset_nodes').on('click', function(){
+        resetNodes();
+    });
+    $('body').on('click', function(){
+        if(node_clicked === true){
+            resetNodes();
+            setTimeout(changeStatus, 2000);
+        }
+    });
+    //Test Slider values
+    $('.node').mouseover(function(){
+        var node = $(this);
+        node.attr('class', 'node animated bounce');
+        window.setTimeout(removeClass, 2000);
+        function removeClass(){
+           node.attr('class', 'node'); 
+        } 
+    });
+
+    //add popupbox
+    var popupBox = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .text("Alex doesn't even lift bro");
 });//end document
 
      //*******Graph functionality
