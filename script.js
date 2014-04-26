@@ -46,7 +46,7 @@ $(document).ready(function () {
     var height = 800 - margin.top - margin.bottom;
 
     //create the svg 
-    var svg = d3.select("#canvas").append("svg").attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
+    var svg = d3.select("#canvas").append("svg").attr('id','graph').attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
 
 
     //Write Slider
@@ -62,9 +62,13 @@ $(document).ready(function () {
         }
     });
 
+    //add popupbox
+    var popupBox = $('#popupBox');
+
 
     //Used to write graph
-    function writeGraph(startDate, endDate) {
+    function writeData(startDate, endDate) {
+            $('#graph').empty(); 
             var x1 = startDate;
             var x2 = endDate;
 
@@ -150,9 +154,7 @@ $(document).ready(function () {
                 });
 
 
-            //add popupbox
-            var popupBox = $('#popupBox');
-
+            
             //Hide all nodes not of same artist
             var node_clicked = false;
 
@@ -208,13 +210,12 @@ $(document).ready(function () {
                     setTimeout(changeStatus, 2000);
                 }
             });
-    } //end writeGraph
+    } //end writeData
 
 
 
     //Grab data asynchronously
     function getdata(){
-        data = [];
         d3.json("data.json", function (error, unfiltered_data) {
             var filterInt = 0;
             unfiltered_data.forEach(function (d) {
@@ -227,7 +228,7 @@ $(document).ready(function () {
             });
             //Start of main stuff
             console.log("called");
-            writeGraph(pageLoadStartDate, pageLoadEndDate);
+            writeData(pageLoadStartDate, pageLoadEndDate);
         });
     }
     //get the data
@@ -244,10 +245,7 @@ $(document).ready(function () {
         // Date slider
         var dateSliderMin = $("#slider").dateRangeSlider("min");
         var dateSliderMax = $("#slider").dateRangeSlider("max");
-        // console.log(dateSliderMin);
-        // console.log(dateSliderMax);
-        $('#canvas').empty();
-        writeGraph(dateSliderMin, dateSliderMax);
+        writeData(dateSliderMin, dateSliderMax);
     });
 
     //Hide all nodes not of same artist
@@ -283,7 +281,7 @@ $(document).ready(function () {
 }); //end document
 
     //*******Graph functionality
-    // function writeGraph(){
+    // function writeData(){
 
     // //****Helper Functions:
     //     //Changes font size based on the z attribute of the input
