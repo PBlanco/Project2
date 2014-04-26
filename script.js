@@ -154,6 +154,7 @@ $(document).ready(function () {
                     return chooseColor(p['Genre']);
                 })
                 .attr("class", "node")
+                .attr('data-selected', 0)
             //for mouseover animation
             .on("mouseover", function () {
                 d3.select(this).transition()
@@ -181,10 +182,12 @@ $(document).ready(function () {
             $('.node').on('click', function (e) {
                 var artist = $(this).data('artist');
                 var artist_nodes = $(".node[data-artist='" + artist + "']");
-                artist_nodes.attr('class', '.node selected');
-                artist_nodes.attr('visibility', 'visibile');
+                //artist_nodes.attr('class', '.node selected');
+                //artist_nodes.attr('visibility', 'visibile');
+                artist_nodes.attr('data-selected', 1);
+                var other_nodes = $(".node[data-selected=0]");
                 //$('.node').attr('visibility', 'hidden');
-                $('.node').fadeOut();
+                other_nodes.fadeOut();
                 $('#name').empty();
                 $('#name').append($(this).data('track'));
                 $('#artist').empty();
@@ -213,7 +216,10 @@ $(document).ready(function () {
 
             //Reset and show all nodes again
             function resetNodes() {
-                $('.node').fadeIn();
+                var artist_nodes = $(".node[data-selected=1]");
+                var other_nodes = $(".node[data-selected=0]");
+                other_nodes.fadeIn();
+                artist_nodes.attr('data-selected', 0);
                 $('#popupBox').fadeOut();
                 setTimeout(changeStatus, 1000);
             }
@@ -264,28 +270,6 @@ $(document).ready(function () {
         var dateSliderMin = $("#slider").dateRangeSlider("min");
         var dateSliderMax = $("#slider").dateRangeSlider("max");
         writeData(dateSliderMin, dateSliderMax);
-    });
-
-    //Hide all nodes not of same artist
-    var node_clicked = false;
-
-    function changeStatus() {
-        node_clicked = !node_clicked;
-    }
-
-    //Reset and show all nodes again
-    function resetNodes() {
-        $('.node').attr('visibility', 'visibile');
-        $('#popupBox').style("visibility", "hidden");
-    }
-
-    $('#reset_nodes').on('click', function () {
-        resetNodes();
-    }); $('body').on('click', function () {
-        if (node_clicked === true) {
-            resetNodes();
-            setTimeout(changeStatus, 2000);
-        }
     });
 
 
