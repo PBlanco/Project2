@@ -6,6 +6,13 @@ $(document).ready(function () {
     var pageLoadEndDate = new Date("04/01/2014");
     var data = [];
 
+    var mouseX;
+    var mouseY;
+    $(document).mousemove( function(e) {
+       mouseX = e.pageX + 10; 
+       mouseY = e.pageY + 10;
+    });  
+
     var color_code = {};
     color_code['Alternative'] = '#000080';
     color_code['Benefit'] = '#808080';
@@ -64,9 +71,6 @@ $(document).ready(function () {
             max: pageLoadEndDate
         }
     });
-
-    //add popupbox
-    var popupBox = $('#popupBox');
 
 
     //Used to write graph
@@ -195,16 +199,16 @@ $(document).ready(function () {
 
                 setTimeout(changeStatus, 100);
 
-                popupBox.show();
-                popupBox.attr("top", (e.clientY - 10) + "px").attr("left", (e.clientX + 10) + "px");
-                
+                //$('#popupBox').show();
+                //$('#popupBox').attr("top", (e.clientY - 10) + "px").attr("left", (e.clientX + 10) + "px");
+                $('#popupBox').css({'top':mouseY,'left':mouseX}).fadeIn('slow');
             });
 
             //Reset and show all nodes again
             function resetNodes() {
                 $('.node').attr('visibility', 'visibile');
                 setTimeout(changeStatus, 1000);
-                popupBox.hide();
+                $('#popupBox').hide();
             }
 
             $('#reset_nodes').on('click', function () {
@@ -264,7 +268,7 @@ $(document).ready(function () {
     //Reset and show all nodes again
     function resetNodes() {
         $('.node').attr('visibility', 'visibile');
-        popupBox.style("visibility", "hidden");
+        $('#popupBox').style("visibility", "hidden");
     }
 
     $('#reset_nodes').on('click', function () {
@@ -276,107 +280,15 @@ $(document).ready(function () {
         }
     });
 
-    //add popupbox
-    var popupBox = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .text("Alex doesn't even lift bro");
+    //add $('#popupBox')
+    // var $('#popupBox') = d3.select("body")
+    // .append("div")
+    // .style("position", "absolute")
+    // .style("z-index", "10")
+    // .style("visibility", "hidden")
+    // .text("Alex doesn't even lift bro");
 
 }); //end document
-
-    //*******Graph functionality
-    // function writeData(){
-
-    // //****Helper Functions:
-    //     //Changes font size based on the z attribute of the input
-    //     function fontSizeScale(z){
-    //         if (z<.00001){
-    //             return 2;
-    //         } else if (z<.00005){
-    //             return 4;
-    //         } else if (z<.00009){
-    //             return 7;
-    //         } else if (z<.00015){
-    //             return 12;
-    //         } else if (z<.00021){
-    //             return 18;
-    //         } else if (z<.00027){
-    //             return 22;
-    //         } else {
-    //             return 26;
-    //         }
-    //     }
-    //     //changes the opacity based on relative position to 0 on the y-axis
-    //     function opacityScale(y){
-    //         if(y==0){
-    //             return 0.3;
-    //         } else {
-    //             return (200*y);
-    //         }
-    //     }
-    //     //changes color based on whether the word is gaining popularity (orange like reddit upvote) or losing popularity (blue like reddit downvote)
-    //     function chooseColor(y){
-    //         if(y>0){return "orange"}else if(y<0){return "blue"}else{return "grey"}
-    //     }
-    //grab the information to be plotted
-    // globalAllWordsInfo.updateAll();
-
-
-    //     relWordFreqDataPoints.makeDataPoints(NUMDATAPOINTS);
-
-
-    //     var input = relWordFreqDataPoints.dataPoints;
-    //     var words = svg.selectAll("text").data(input).enter().append("text");
-
-    //     //plot words
-    //     words
-    //         .attr("class", "trending_words")
-    //         .attr("x", function(w) {return xScale(w.x);})
-    //         .attr("y", function(w) {return yScale(w.y);})
-    //         .style("fill", function(w){ return chooseColor(w.y);})
-    //         .style("font-size", function(w){ return fontSizeScale(w.z);})
-    //         .text(function (w) { return w.word; })
-    //         .style("opacity", function(w){return opacityScale(Math.abs(w.y))})
-    //         .style("z-index", 5);
-
-    //     //plot scales
-    //     svg.append("text").attr("x", 955).attr("y", yScale(0)).text("Time Blocks");
-    //     svg.append("text").attr("x", 955).attr("y", yScale(-0.001)).text("(minute increments)").attr("font-size", "8pt");
-    //     svg.append("text").attr("x", 200).attr("y", -1000).text("Trending Status").attr("transform", "rotate(90)");
-    //     svg.append("text").attr("x", 150).attr("y", -980).text("(relative word frequency to see if the word").attr("transform", "rotate(90)").attr("font-size", "8pt");
-    //     svg.append("text").attr("x", 150).attr("y", -960).text("popularity increases or decreases over time)").attr("transform", "rotate(90)").attr("font-size", "8pt");
-
-    //     var formatTime = function(d) {
-    //         return  (NUMDATAPOINTS*d/60*-1);      
-    //     }
-
-
-    //     d3.selectAll(".trending_words").on('mouseover', mouseover).on('mouseout', mouseout);
-    //     //on mouse over, make more apparent the word being viewed
-    //     function mouseover(){
-    //         d3.selectAll('.trending_words').style('z-index', 1);
-    //         d3.select(this).style("opacity", "1.0").style("fill", "green").style("z-index", 99);
-    //     }
-    //     // on mouse out, return the word to its initial state
-    //     function mouseout(){
-    //         d3.select(this).style("opacity", function(w){return opacityScale(Math.abs(w.y))}).style("fill", function(w){return chooseColor(w.y)}).style("z-index", 5);
-    //     }
-    //     //on mouse click, only show the word in question, hide all others
-    //     d3.selectAll(".trending_words").on('click', function(){
-    //         var selected_word = d3.select(this).text();
-    //         console.log(selected_word);
-    //         words.attr('opacity', 1.0).attr('display', function(w){ if(w.word==selected_word){ return 'block';} else  { return 'none';}});
-    //     });
-    //     //return the graph to its initial state
-    //     $('#reset').on('click', function(){
-    //         console.log('clicky');
-    //         words.attr('display', 'inline').attr('opacity', function(w){return opacityScale(Math.abs(w.y))});
-    //     });
-
-    // }//End Write Graph
-
 
     // Black or 000000  Gray or 808080  Silver or C0C0C0    White or FFFFFF
     //  Navy or 000080  Blue or 0000FF  Teal or 008080  Aqua or 00FFFF

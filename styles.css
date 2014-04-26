@@ -58,9 +58,9 @@ svg {
 }
 /*var margin = {top: 20, right: 20, bottom: 40, left: 60};*/
 #popupBox{
-	border:solid;
+	/*border:solid;
 	border-width:1px;
-	border-color:gray;
+	border-color:gray;*/
 	display: none;
 	position: absolute;
 }
