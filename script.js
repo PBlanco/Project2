@@ -71,20 +71,28 @@ $(document).ready(function () {
 
     //Used to write graph
     function writeData(startDate, endDate) {
-            $('#graph').empty(); 
+            $('#graph').empty();
             var x1 = startDate;
             var x2 = endDate;
 
-            var y1 = d3.min(data, function (entry) {
+            filtered_data = [];
+            data.forEach( function (d) {
+                if (new Date(d['Date Peaked']) > new Date(startDate) && new Date(d['Date Peaked']) < new Date(endDate)) {
+                    filtered_data.push(d);
+                }
+            });
+
+
+            var y1 = d3.min(filtered_data, function (entry) {
                 return +entry["Temp 1"];
             });
 
-            var y2 = d3.max(data, function (entry) {
+            var y2 = d3.max(filtered_data, function (entry) {
                 return +entry["Temp 1"];
             });
 
-            var xScale = d3.time.scale().domain([x1, x2]).range([margin.left, width]);
-            var yScale = d3.scale.linear().domain([y1, y2]).range([height, margin.top]);
+            xScale = d3.time.scale().domain([x1, x2]).range([margin.left, width]);
+            yScale = d3.scale.linear().domain([y1, y2]).range([height, margin.top]);
             var rScale = d3.scale.log().domain([100, 1]).range([0.5, 10]);
 
             var xAxis = d3.svg.axis().scale(xScale);
@@ -92,7 +100,7 @@ $(document).ready(function () {
             var yAxis = d3.svg.axis().scale(yScale).orient("left");
             svg.append("g").attr("class", "axis").attr("transform", "translate(" + xScale(x1) + ", 0)").call(yAxis);
 
-            var points = svg.selectAll("circle").data(data).enter().append("circle");
+            var points = svg.selectAll("circle").data(filtered_data).enter().append("circle");
 
             points
                 .attr("data-track", function (p) {
@@ -225,10 +233,13 @@ $(document).ready(function () {
         d3.json("data.json", function (error, unfiltered_data) {
             var filterInt = 0;
             unfiltered_data.forEach(function (d) {
-                if (filterInt % 10 == 0) {
-                    // if (!(isNaN(xScale(new Date(d['Date Peaked']))) || isNaN(yScale(d['Temp 1']))) && (d['High'] !== "0" && d['High'] !== ""))
-                    data.push(d);
-                    
+                if (filterInt % 10 === 0) {
+                    if (d['Date Peaked'] !== "" && d['Temp 1'] !== "" && d['High'] !== "0" && d['High'] !== "") {
+                    // if (!(isNaN(xScale(new Date(d['Date Peaked']))) ||
+                    //     isNaN(yScale(d['Temp 1']))) &&
+                    //     (d['High'] !== "0" && d['High'] !== ""))
+                        data.push(d);
+                    }
                 }
                 filterInt++;
             });
