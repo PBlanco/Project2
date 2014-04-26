@@ -148,13 +148,13 @@ $(document).ready(function () {
                     .attr("r", 20)
                     .attr('oldr', $(this).attr('r'));
             })
-                .on("mouseout", function () {
-                    d3.select(this).transition()
-                        .duration(250)
-                        .attr("r", $(this).attr('oldr'))
-                        .attr('oldr', null);
+            .on("mouseout", function () {
+                d3.select(this).transition()
+                    .duration(250)
+                    .attr("r", $(this).attr('oldr'))
+                    .attr('oldr', null);
 
-                });
+            });
 
 
             
@@ -162,7 +162,9 @@ $(document).ready(function () {
             var node_clicked = false;
 
             function changeStatus() {
+                console.log('started ' + node_clicked);
                 node_clicked = !node_clicked;
+                console.log('now ' + node_clicked);
             }
 
             $('.node').on('click', function (e) {
@@ -170,7 +172,6 @@ $(document).ready(function () {
                 var artist_nodes = $(".node[data-artist='" + artist + "']");
                 $('.node').attr('visibility', 'hidden');
                 artist_nodes.attr('visibility', 'visibile');
-
                 $('#name').empty();
                 $('#name').append($(this).data('track'));
                 $('#artist').empty();
@@ -192,15 +193,17 @@ $(document).ready(function () {
                 $('#yearlyrank').empty();
                 $('#yearlyrank').append($(this).data('yearlyrank'));
 
+                setTimeout(changeStatus, 100);
+
                 popupBox.show();
                 popupBox.attr("top", (e.clientY - 10) + "px").attr("left", (e.clientX + 10) + "px");
-
-                setTimeout(changeStatus, 2000);
+                
             });
 
             //Reset and show all nodes again
             function resetNodes() {
                 $('.node').attr('visibility', 'visibile');
+                setTimeout(changeStatus, 1000);
                 popupBox.hide();
             }
 
@@ -208,9 +211,9 @@ $(document).ready(function () {
                 resetNodes();
             });
             $('body').on('click', function () {
+                console.log(node_clicked);
                 if (node_clicked === true) {
                     resetNodes();
-                    setTimeout(changeStatus, 2000);
                 }
             });
     } //end writeData
