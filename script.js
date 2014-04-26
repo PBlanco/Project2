@@ -248,7 +248,6 @@ $(document).ready(function () {
                 filterInt++;
             });
             //Start of main stuff
-            console.log("called");
             writeData(pageLoadStartDate, pageLoadEndDate);
         });
     }
