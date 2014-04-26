@@ -290,6 +290,23 @@ $(document).ready(function () {
         }
     });
 
+
+    $('#searchboxbutton').on('click', function () {
+        $('.node').attr('visibility', 'hidden');
+        var input = $('#searchbox').val();
+        var artist_nodes = $(".node[data-artist='" + input + "']");
+        var track_nodes = $(".node[data-track='" + input + "']");
+        var album_nodes = $(".node[data-album='" + input + "']");
+
+        console.log(artist_nodes);
+        console.log(track_nodes);
+        console.log(album_nodes);
+        artist_nodes.attr('visibility', 'visibile');
+        track_nodes.attr('visibility', 'visibile');
+        album_nodes.attr('visibility', 'visibile');
+    });
+
+    
     //add $('#popupBox')
     // var $('#popupBox') = d3.select("body")
     // .append("div")

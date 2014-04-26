@@ -53,9 +53,9 @@ svg {
 .node.large{
 	r:100px;
 }
-.button{
+/*.button{
 	margin:20px 0 20px 0;
-}
+}*/
 /*var margin = {top: 20, right: 20, bottom: 40, left: 60};*/
 #popupBox{
 	/*border:solid;
