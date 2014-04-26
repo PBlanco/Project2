@@ -73,6 +73,7 @@ $(document).ready(function () {
         }
     });
 
+    
 
     //Used to write graph
     function writeData(startDate, endDate) {
@@ -264,6 +265,14 @@ $(document).ready(function () {
         alert("Do the Harlem Shake! The music can't be stopped!");
     });
 
+    $('#slider').mousemove('drag',function (e) {
+        e.preventDefault();
+        // Date slider
+        var dateSliderMin = $("#slider").dateRangeSlider("min");
+        var dateSliderMax = $("#slider").dateRangeSlider("max");
+        writeData(dateSliderMin, dateSliderMax);
+    });
+
     $('#submit').on('click', function (e) {
         e.preventDefault();
         // Date slider
@@ -272,7 +281,6 @@ $(document).ready(function () {
         writeData(dateSliderMin, dateSliderMax);
     });
 
-
     $('#searchboxbutton').on('click', function () {
         $('.node').attr('visibility', 'hidden');
         var input = $('#searchbox').val();
@@ -280,9 +288,6 @@ $(document).ready(function () {
         var track_nodes = $(".node[data-track='" + input + "']");
         var album_nodes = $(".node[data-album='" + input + "']");
 
-        console.log(artist_nodes);
-        console.log(track_nodes);
-        console.log(album_nodes);
         artist_nodes.attr('visibility', 'visibile');
         track_nodes.attr('visibility', 'visibile');
         album_nodes.attr('visibility', 'visibile');
