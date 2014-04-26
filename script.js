@@ -1,3 +1,6 @@
+//TODO:
+// 1) Get the box to show and hover on node click (introduce bug during refactor)
+// 2) Get the slider to auto redraw data when releaseing slider date
 $(document).ready(function () {
     var pageLoadStartDate = new Date("01/01/1990");
     var pageLoadEndDate = new Date("04/01/2014");
