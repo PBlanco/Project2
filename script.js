@@ -5,6 +5,7 @@ $(document).ready(function () {
     var pageLoadStartDate = new Date("01/01/1990");
     var pageLoadEndDate = new Date("04/01/2014");
     var data = [];
+    var artist;
 
     var mouseX;
     var mouseY;
@@ -174,16 +175,16 @@ $(document).ready(function () {
             var node_clicked = false;
 
             function changeStatus() {
-                console.log('started ' + node_clicked);
                 node_clicked = !node_clicked;
-                console.log('now ' + node_clicked);
             }
 
             $('.node').on('click', function (e) {
                 var artist = $(this).data('artist');
                 var artist_nodes = $(".node[data-artist='" + artist + "']");
-                $('.node').attr('visibility', 'hidden');
+                artist_nodes.attr('class', '.node selected');
                 artist_nodes.attr('visibility', 'visibile');
+                //$('.node').attr('visibility', 'hidden');
+                $('.node').fadeOut();
                 $('#name').empty();
                 $('#name').append($(this).data('track'));
                 $('#artist').empty();
@@ -206,24 +207,21 @@ $(document).ready(function () {
                 $('#yearlyrank').append($(this).data('yearlyrank'));
 
                 setTimeout(changeStatus, 100);
-
-                //$('#popupBox').show();
-                //$('#popupBox').attr("top", (e.clientY - 10) + "px").attr("left", (e.clientX + 10) + "px");
                 $('#popupBox').css({'top':mouseY,'left':mouseX}).fadeIn('slow');
+                $( "#popupBox" ).draggable();
             });
 
             //Reset and show all nodes again
             function resetNodes() {
-                $('.node').attr('visibility', 'visibile');
+                $('.node').fadeIn();
+                $('#popupBox').fadeOut();
                 setTimeout(changeStatus, 1000);
-                $('#popupBox').hide();
             }
 
             $('#reset_nodes').on('click', function () {
                 resetNodes();
             });
             $('body').on('click', function () {
-                console.log(node_clicked);
                 if (node_clicked === true) {
                     resetNodes();
                 }

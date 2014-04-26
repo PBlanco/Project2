@@ -45,10 +45,10 @@ svg {
 	margin: 20px 20px 40px 60px;
 }
 .node{
+	cursor:pointer;
   -vendor-animation-duration: 3s;
   -vendor-animation-delay: 2s;
   -vendor-animation-iteration-count: infinite;
-	cursor:pointer;
 }
 .node.large{
 	r:100px;
@@ -63,6 +63,8 @@ svg {
 	border-color:gray;*/
 	display: none;
 	position: absolute;
+	cursor: pointer;
+	opacity:.8;
 }
 
 .node .popup {
