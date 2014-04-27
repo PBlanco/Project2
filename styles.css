@@ -80,3 +80,48 @@ svg {
 .parent:hover .popup {
   display: block;
 }
+
+/*legend*/
+.my-legend {
+	border: solid 1px lightgrey;
+	padding: 10px;
+}
+.my-legend .legend-title {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 90%;
+  }
+.my-legend .legend-scale ul {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+   width: 30em;
+  }
+.my-legend .legend-scale ul li {
+  font-size: 80%;
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 2px;
+  float: left;
+  width: 13em;
+  }
+.my-legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 16px;
+  width: 30px;
+  margin-right: 5px;
+  margin-left: 0;
+  border: 1px solid #999;
+  }
+.my-legend .legend-source {
+  font-size: 70%;
+  color: #999;
+  clear: both;
+  }
+.my-legend a {
+  color: #777;
+  }

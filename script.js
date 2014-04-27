@@ -243,6 +243,8 @@ $(document).ready(function () {
                 changeStatus();
             }
 
+
+
     } //end writeData
 
 
@@ -308,6 +310,13 @@ $(document).ready(function () {
             $('#searchboxbutton').click();
         }
     });
+
+    //Legend code
+    var legend = $(".legend-labels")
+    $.each(color_code, function(key, value) { 
+        legend.append("<li><span style='background:"+ value +";'></span>"+key+"</li>");
+    });
+    legend.append("<li><span style='background:#000;'></span>No Genre Data</li>")
 
 }); //end document
 
