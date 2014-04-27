@@ -53,8 +53,8 @@ $(document).ready(function () {
     };
 
     //Write Graph
-    var width = 1000 - margin.left - margin.right;
-    var height = 800 - margin.top - margin.bottom;
+    var width = 800 - margin.left - margin.right;
+    var height = 600 - margin.top - margin.bottom;
 
     //create the svg 
     var svg = d3.select("#canvas").append("svg").attr('id','graph').attr("height", (height + margin.top + margin.bottom)).attr("width", (width + margin.left + margin.right));
@@ -179,60 +179,70 @@ $(document).ready(function () {
             function changeStatus() {
                 node_clicked = !node_clicked;
             }
-
-            $('.node').on('click', function (e) {
-                var artist = $(this).data('artist');
-                var artist_nodes = $(".node[data-artist='" + artist + "']");
-                //artist_nodes.attr('class', '.node selected');
-                //artist_nodes.attr('visibility', 'visibile');
-                artist_nodes.attr('data-selected', 1);
-                var other_nodes = $(".node[data-selected=0]");
-                //$('.node').attr('visibility', 'hidden');
-                other_nodes.fadeOut();
-                $('#name').empty();
-                $('#name').append($(this).data('track'));
-                $('#artist').empty();
-                $('#artist').append($(this).data('artist'));
-                $('#genre').empty();
-                $('#genre').append($(this).data('genre'));
-                $('#album').empty();
-                $('#album').append($(this).data('album'));
-                $('#year').empty();
-                $('#year').append($(this).data('year'));
-                $('#peak').empty();
-                $('#peak').append($(this).data('peak'));
-                $('#high').empty();
-                $('#high').append($(this).data('high'));
-                $('#length').empty();
-                $('#length').append($(this).data('length'));
-                $('#temp1').empty();
-                $('#temp1').append($(this).data('temp1'));
-                $('#yearlyrank').empty();
-                $('#yearlyrank').append($(this).data('yearlyrank'));
-
-                setTimeout(changeStatus, 100);
-                $('#popupBox').css({'top':mouseY,'left':mouseX}).fadeIn('slow');
-                $( "#popupBox" ).draggable();
+            $('#graph').on('click', function (e) {
+                if((!$(e.target).is('.node'))&&(node_clicked === true)){
+                    resetNodes();
+                }
             });
+            $('#resetnodes').on('click', function(){
+                $('.node').fadeIn('slow');
+                resetNodes();
+            });
+
+
+                $('.node').on('click', function (e) {
+                        var artist = $(this).data('artist');
+                        var artist_nodes = $(".node[data-artist='" + artist + "']");
+                        artist_nodes.attr('data-selected', 1);
+                        $('#name').empty();
+                        $('#name').append($(this).data('track'));
+                        $('#artist').empty();
+                        $('#artist').append($(this).data('artist'));
+                        $('#genre').empty();
+                        $('#genre').append($(this).data('genre'));
+                        $('#album').empty();
+                        $('#album').append($(this).data('album'));
+                        $('#year').empty();
+                        $('#year').append($(this).data('year'));
+                        $('#peak').empty();
+                        $('#peak').append($(this).data('peak'));
+                        $('#high').empty();
+                        $('#high').append($(this).data('high'));
+                        $('#length').empty();
+                        $('#length').append($(this).data('length'));
+                        $('#temp1').empty();
+                        $('#temp1').append($(this).data('temp1'));
+                        $('#yearlyrank').empty();
+                        $('#yearlyrank').append($(this).data('yearlyrank'));
+                    
+                    if(node_clicked===false){
+                        $('#popupBox').css({'top':mouseY,'left':mouseX}).fadeIn('slow');
+                        $( "#popupBox" ).draggable();
+                        var other_nodes = $(".node[data-selected=0]");
+                        other_nodes.fadeOut();
+                        setTimeout(changeStatus, 100);
+                    } else {
+                        //alert('sup');
+                        $( "#popupBox" ).animate({
+                            left: mouseX,
+                            top: mouseY,
+                          }, 500, function() {
+                            // Animation complete.
+                          });
+                    }
+                });
+            
 
             //Reset and show all nodes again
             function resetNodes() {
                 var artist_nodes = $(".node[data-selected=1]");
                 var other_nodes = $(".node[data-selected=0]");
-                other_nodes.fadeIn();
+                other_nodes.fadeIn('slow');
                 artist_nodes.attr('data-selected', 0);
-                $('#popupBox').fadeOut();
-                setTimeout(changeStatus, 1000);
+                $('#popupBox').fadeOut('slow');
+                changeStatus();
             }
 
-            $('#reset_nodes').on('click', function () {
-                resetNodes();
-            });
-            $('body').on('click', function () {
-                if (node_clicked === true) {
-                    resetNodes();
-                }
-            });
     } //end writeData
 
 
@@ -282,25 +292,22 @@ $(document).ready(function () {
     });
 
     $('#searchboxbutton').on('click', function () {
-        $('.node').attr('visibility', 'hidden');
+        $('.node').fadeOut('slow');
         var input = $('#searchbox').val();
         var artist_nodes = $(".node[data-artist='" + input + "']");
         var track_nodes = $(".node[data-track='" + input + "']");
         var album_nodes = $(".node[data-album='" + input + "']");
-
-        artist_nodes.attr('visibility', 'visibile');
-        track_nodes.attr('visibility', 'visibile');
-        album_nodes.attr('visibility', 'visibile');
+        artist_nodes.fadeIn('slow');
+        track_nodes.fadeIn('slow');
+        album_nodes.fadeIn('slow');
     });
 
-    
-    //add $('#popupBox')
-    // var $('#popupBox') = d3.select("body")
-    // .append("div")
-    // .style("position", "absolute")
-    // .style("z-index", "10")
-    // .style("visibility", "hidden")
-    // .text("Alex doesn't even lift bro");
+    $("#searchbox").keydown(function(e) {
+        var code = e.keyCode || e.which;
+        if(code == 13) { //Enter keycode
+            $('#searchboxbutton').click();
+        }
+    });
 
 }); //end document
 

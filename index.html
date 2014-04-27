@@ -14,11 +14,13 @@
         <script src="js/vendor/modernizr.js"></script>
         <script src='script.js'></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
+
+        <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
     </head>
 
     <body>
-        <div class="contain-to-grid">
-            <nav class="top-bar" data-topbar>
+
+           <!--  <nav class="top-bar" data-topbar>
               <ul class="title-area">
                 <li class="name">
                   <h1><a id='home' href="#">Music of the Ages</a></h1>
@@ -27,19 +29,17 @@
               </ul>
 
               <section class="top-bar-section">
-                <!-- Right Nav Section -->
-                <ul class="right">
-                  <li class="active"><a href='#' id='reset_nodes'>Reset Nodes</a></li>
-                  <li class="active"><a href-'#' id='submit'>Redraw Graph</a></li>
-                </ul>
+                <!-- left Nav Section -->
+               <!--  <ul class="left">
+                  <li><a href='#' id='names'>By Peter Blanco, Demitri Tzitzon, Alex Meyers</a></li>
+                </ul> -->
 
-                <!-- Left Nav Section -->
-                <ul class="left">
-                  <!-- <li><a href='#'>By Peter Blanco, Demitri Tzitzon, Alex Meyers</a></li> -->
+                <!-- right Nav Section -->
+                <!-- <ul class="right">
                   <li class="has-form">
                       <div class="row">
                         <div class="large-8 columns">
-                          <input type="text" placeholder="Find Stuff" id='searchbox'>
+                          <input type="text" placeholder="Find Songs" id='searchbox'>
                         </div>
                         <div class="large-4 columns">
                           <a href="#" class="alert button expand" id='searchboxbutton'>Search</a>
@@ -48,33 +48,63 @@
                  </li>
                 </ul>
               </section>
-            </nav>
-        </div>
+            </nav> -->
+
 
         <div class='row'>
-            <div class='large-12 columns'>
-                <div class='row'>
-                    <div class='large-2 columns'>
-                        
-                    </div>
-                </div>
-                <div class='row'>
+            <div class='large-9 push-3 columns'>
+                <div class='row lesspadding'>
                     <div class='large-12 columns'>
                         <div id='canvas'></div>
-                    </div>
-                </div>
-                <div class='row'>
+                    </div><!--12-->
+                </div><!--row-->
+                <div class='row lesspadding'>
                     <div class='large-12 columns'>
                         <div id="slider"></div>
                     </div><!--12 cols-->
                 </div><!--row-->
+            </div><!--9 push-3 cols-->
+
+            <div class='large-3 pull-9 columns' id='left_bar'>
                 <div class='row'>
-                    <div class='large-2 columns'>    
-                        
-                    </div><!--2 cols-->
-                </div><!--row-->
-            </div><!--12 cols-->
-        </div>
+                    <div class='large-12 columns'>
+                        <div class='row' id='home'>
+                            <div class='large-4 columns'>
+                                <img src='record.gif' alt='home' id='icon'/>
+                            </div>
+                            <div class='large-8 columns'>
+                                <h3 id='welcome'>Welcome to Music of the Ages!</h3>
+                            </div>
+                        </div><!--row-->
+                        <div class='row padding'>
+                            <h5>By Peter Blanco, Demitri Tzitzon, and Alex Meyers</h5>
+                            <h6>The graph to the side is a representation of top Billboard Songs in the last 24 years.</h6>
+                            <p>Click on a circle to see more information about the specific song and to isolate other songs by the artist. To reset the graph, simply click on the white space in the graph.  You may also drag the information box around in case it is covering certain data points.</p>
+                            <p>Drag the slider to change the timeline of songs displayed.</p>
+                        </div><!--row-->
+                    </div>
+                </div>
+                <div class="row">
+                        <div class='large-12 columns'>
+                            <p>Use the search box below to find specific songs.  Note: It is case sensitive.</p>
+                        </div>
+                        <div class='row'>
+                            <div class="large-12 columns">
+                              <input type="text" placeholder="Find Songs" id='searchbox'>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class="large-6 columns">
+                              <a href="#" class="alert button" id='searchboxbutton'>Search</a>
+                            </div>
+                            <div class="large-6 columns">
+                              <a href="#" class="success button" id='resetnodes'>Reset</a>
+                            </div>
+                        </div>
+
+                </div>
+            </div><!-- 3 push 9 -->
+        </div><!--row-->
 
         <div id='popupBox'>
             <h3>Song Information:</h3>
@@ -113,79 +143,6 @@
               </tbody>
             </table>
         </div>
-
-        <!-- <p>Name: <span id='name'></span></p>
-            <p>Artist: <span id='artist'></span></p>
-            <p>Genre: <span id='genre'></span></p>
-            <p>Album: <span id='album'></span></p>
-            <p>Year: <span id='year'></span></p>
-            <p>Date Peaked: <span id='peak'></span></p>
-            <p>Highest Billboard Rank: <span id='high'></span></p>
-            <p>Length: <span id='time'></span></p>
-            <p>Lacefer Score: <span id='temp1'></span></p>
-            <p>Yearly Rank: <span id='yearlyrank'></span></p> -->
-
-        <!-- <p>Name: <span id='name'></span></p>
-            <p>Artist: <span id='artist'></span></p>
-            <p>Genre: <span id='genre'></span></p>
-            <p>Album: <span id='album'></span></p>
-            <p>Year: <span id='year'></span></p>
-            <p>Date Peaked: <span id='peak'></span></p>
-            <p>Highest Billboard Rank: <span id='high'></span></p>
-            <p>Length: <span id='time'></span></p>
-            <p>Lacefer Score: <span id='temp1'></span></p>
-            <p>Yearly Rank: <span id='yearlyrank'></span></p> -->
-
-        <!-- <div id='popupBox'>
-            <div class='row'>
-                <div class='large-12 columns'>
-                    <div class='row'>
-                        <h3>Song Information</h3>
-                    </div><!--row-->
-                    <!-- <div class='row'>
-                        <div class='large-6 columns'>
-                            <p>Name: <span id='name'></span></p>
-                        </div>
-                        <div class='large-6 columns'>
-                            <p>Artist: <span id='artist'></span></p>
-                        </div>
-                    </row>
-                    <div class='row'>
-                        <div class='large-6 columns'>
-                            <p>Genre: <span id='genre'></span></p>
-                        </div>
-                        <div class='large-6 columns'>
-                            <p>Album: <span id='album'></span></p>
-                        </div>
-                    </row>
-                    <div class='row'>
-                        <div class='large-6 columns'>
-                            <p>Year: <span id='year'></span></p>
-                        </div>
-                        <div class='large-6 columns'>
-                            <p>Date Peaked: <span id='peak'></span></p>
-                        </div>
-                    </row>
-                    <div class='row'>
-                        <div class='large-6 columns'>
-                            <p>Highest Billboard Rank: <span id='high'></span></p>
-                        </div>
-                        <div class='large-6 columns'>
-                            <p>Length: <span id='time'></span></p>
-                        </div>
-                    </row>
-                    <div class='row'>
-                        <div class='large-6 columns'>
-                            <p>Lacefer Score: <span id='temp1'></span></p>
-                        </div>
-                        <div class='large-6 columns'>
-                            <p>Yearly Rank: <span id='yearlyrank'></span></p>
-                        </div>
-                    </row>     -->
-                <!-- </div>12 cols -->
-            <!-- </div><!--row--> 
-        <!-- </div> --> 
-
 
         <audio id="audio" src="http://dev.interactive-creation-works.net/1/1.ogg" ></audio>
 
