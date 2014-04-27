@@ -49,7 +49,7 @@ $(document).ready(function () {
         top: 20,
         right: 20,
         bottom: 40,
-        left: 20
+        left: 50
     };
 
     //Write Graph
@@ -106,7 +106,21 @@ $(document).ready(function () {
             var yAxis = d3.svg.axis().scale(yScale).orient("left");
             svg.append("g").attr("class", "axis").attr("transform", "translate(" + xScale(x1) + ", 0)").call(yAxis);
 
+            // Title for axis
+            svg.append("text")
+                .attr("text-anchor", "middle") 
+                .attr("transform", "translate("+ -10 +","+((height+margin.top + margin.bottom)/2)+")rotate(-90)")
+                .text("Popularity");
+
+            svg.append("text")
+                .attr("text-anchor", "middle")  
+                .attr("transform", "translate("+ ((width + margin.left + margin.right)/2) +","+(height + margin.bottom)+")")  
+                .text("Date");
+
+            //Points code
+
             var points = svg.selectAll("circle").data(filtered_data).enter().append("circle");
+
 
             points
                 .attr("data-track", function (p) {
