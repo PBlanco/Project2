@@ -19,7 +19,10 @@ p{
 	font-weight: "Helvetica Neue";
 }
 #left_bar{
-	margin:5% 0 0 0;
+	margin:5% 0 0 -2%;
+}
+.legend_genres{
+  cursor: pointer;
 }
 #resetnodes{
 	float:right;
@@ -41,8 +44,7 @@ svg {
 #canvas {
 	display: block; 
 	text-align: center;
-    /*margin:30px;*/
-	padding:30px;
+	/*padding:30px;*/
 }
 .axis path { 
 	fill: none; 
@@ -55,7 +57,7 @@ svg {
 	/*margin:auto;*/
 	display: block; 
 	text-align: center;
-	margin: auto;
+	margin: 0 0 0 50px;
 }
 .node{
 	cursor:pointer;
@@ -80,12 +82,25 @@ svg {
 .parent:hover .popup {
   display: block;
 }
+.right_text{
+  margin-left: -5%;
+}
+#search_area{
+  margin:25% 0 0 0;
+}
+#searchboxbutton{
+  float:left;
+}
+#resetnodes{
+  float:right;
+}
 
 /*legend*/
 .my-legend {
 	border: solid 1px lightgrey;
 	padding: 10px;
-  width: 280px;
+  width: 100%;
+  margin: 5% 0 0 -5%;
 }
 .my-legend .legend-title {
   text-align: left;

@@ -53,7 +53,7 @@ $(document).ready(function () {
     };
 
     //Write Graph
-    var width = 800 - margin.left - margin.right;
+    var width = 700 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
 
     //create the svg 
@@ -236,7 +236,6 @@ $(document).ready(function () {
                         other_nodes.fadeOut();
                         setTimeout(changeStatus, 100);
                     } else {
-                        //alert('sup');
                         $( "#popupBox" ).animate({
                             left: mouseX,
                             top: mouseY,
@@ -328,40 +327,15 @@ $(document).ready(function () {
     //Legend code
     var legend = $(".legend-labels")
     $.each(color_code, function(key, value) { 
-        legend.append("<li><span style='background:"+ value +";'></span>"+key+"</li>");
+        legend.append("<li class='legend_genres' data-genre='" + key + "'><span style='background:"+ value +";'></span>"+key+"</li>");
     });
-    legend.append("<li><span style='background:#000;'></span>No Genre Data</li>")
+    legend.append("<li class='legend_genres' data-genre=''><span style='background:#000;'></span>No Genre Data</li>");
+
+    $('.legend_genres').on('click', function(){
+        var genre = $(this).data('genre');
+        $('.node').fadeOut('slow');
+        var genre_nodes = $(".node[data-genre='" + genre + "']");
+        genre_nodes.fadeIn('slow');
+    });
 
 }); //end document
-
-    // Black or 000000  Gray or 808080  Silver or C0C0C0    White or FFFFFF
-    //  Navy or 000080  Blue or 0000FF  Teal or 008080  Aqua or 00FFFF
-    //  Purple or 800080    Maroon or 800000    Red or FF0000   Fuschia or FF00FF
-    //  Green or 008000     Lime or 00FF00  Olive or 808000     Yellow or FFFF00
-
-    // Object {"": 0, Rock: 0, Rap: 0, Country: 0, Newage: 0…}
-    // "": 0
-    // Alternative: 0
-    // Benefit: 0
-    // Blues: 0
-    // Club: 0
-    // Comedy: 0
-    // Country: 0
-    // Dance: 0
-    // Easy: 0
-    // Electronica: 0 
-    // Ensemble: 0
-    // Folk: 0
-    // Gospel: 0
-    // Jazz: 0
-    // Latin: 0
-    // Newage: 0
-    // Pop: 0
-    // R&B: 0
-    // Rap: 0
-    // Reggae: 0
-    // Rock: 0
-    // Singer-Songwriter: 0
-    // Techno: 0
-    // Vocal: 0
-    // World: 0

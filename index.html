@@ -19,53 +19,8 @@
     </head>
 
     <body>
-
-           <!--  <nav class="top-bar" data-topbar>
-              <ul class="title-area">
-                <li class="name">
-                  <h1><a id='home' href="#">Music of the Ages</a></h1>
-                </li>
-                <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-              </ul>
-
-              <section class="top-bar-section">
-                <!-- left Nav Section -->
-               <!--  <ul class="left">
-                  <li><a href='#' id='names'>By Peter Blanco, Demitri Tzitzon, Alex Meyers</a></li>
-                </ul> -->
-
-                <!-- right Nav Section -->
-                <!-- <ul class="right">
-                  <li class="has-form">
-                      <div class="row">
-                        <div class="large-8 columns">
-                          <input type="text" placeholder="Find Songs" id='searchbox'>
-                        </div>
-                        <div class="large-4 columns">
-                          <a href="#" class="alert button expand" id='searchboxbutton'>Search</a>
-                        </div>
-                      </div>
-                 </li>
-                </ul>
-              </section>
-            </nav> -->
-
-
         <div class='row'>
-            <div class='large-9 push-3 columns'>
-                <div class='row lesspadding'>
-                    <div class='large-12 columns'>
-                        <div id='canvas'></div>
-                    </div><!--12-->
-                </div><!--row-->
-                <div class='row lesspadding'>
-                    <div class='large-12 columns'>
-                        <div id="slider"></div>
-                    </div><!--12 cols-->
-                </div><!--row-->
-            </div><!--9 push-3 cols-->
-
-            <div class='large-3 pull-9 columns' id='left_bar'>
+            <div class='large-3 columns' id='left_bar'>
                 <div class='row'>
                     <div class='large-12 columns'>
                         <div class='row' id='home'>
@@ -85,28 +40,45 @@
                         </div><!--row-->
                     </div>
                 </div>
-                <div class="row">
-                        <div class='large-12 columns'>
-                            <p>Use the search box below to find specific songs.  Note: It is case sensitive.</p>
-                        </div>
-                        <div class='row'>
-                            <div class="large-12 columns">
-                              <input type="text" placeholder="Find Songs" id='searchbox'>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class="large-6 columns">
-                              <a href="#" class="alert button" id='searchboxbutton'>Search</a>
-                            </div>
-                            <div class="large-6 columns">
-                              <a href="#" class="success button" id='resetnodes'>Reset</a>
-                            </div>
-                        </div>
-
-                </div>
-
-                <div class='row'>
+            </div><!-- 3 cols -->
+            <div class='large-6 columns'>
+                <div class='row lesspadding'>
                     <div class='large-12 columns'>
+                        <div id='canvas'></div>
+                    </div><!--12-->
+                </div><!--row-->
+                <div class='row lesspadding'>
+                    <div class='large-12 columns'>
+                        <div id="slider"></div>
+                    </div><!--12 cols-->
+                </div><!--row-->
+            </div><!-- 7 cols-->
+            <div class='large-3 columns' id='right_bar'>
+
+                <div class='row' id='search_area'>
+                      <div class='large-12 columns'>
+                          <p class='right_text'>Use the search box below to find specific songs.  Note: It is case sensitive.</p>
+                      </div>
+                      <div class='row'>
+                          <div class="large-12 columns">
+                            <input type="text" placeholder="Find Songs" id='searchbox'>
+                          </div>
+                      </div>
+                      <div class='row' id='searchbuttonarea'>
+                          <div class="large-6 columns">
+                            <a href="#" class="alert button" id='searchboxbutton'>Search</a>
+                          </div>
+                          <div class="large-6 columns">
+                            <a href="#" class="success button" id='resetnodes'>Reset</a>
+                          </div>
+                      </div>
+              </div><!--row-->
+
+
+
+              <div class='row padding'>
+                    <div class='large-12 columns'>
+                      <p class='right_text'>Click on a genre in the legend to isolate those songs on the graph.</p>
                         <div class='my-legend'>
                         <div class='legend-title'><h5>Genres by Color</h5></div>
                         <div class='legend-scale'>
@@ -114,12 +86,11 @@
                     
                           </ul>
                         </div>
-                        <div class='legend-source'>Source: <a href="http://waxy.org/2008/05/the_whitburn_project/">The Whitburn Project</a></div>
+                        <div class='legend-source'>Source: <a href="http://www.infochimps.com/datasets/the-whitburn-project-120-years-of-music-chart-history" target='_blank'>The Whitburn Project</a></div>
                         </div>
-
                     </div><!--12-->
                 </div><!--row-->
-            </div><!-- 3 push 9 -->
+            </div><!-- large-2 cols -->
         </div><!--row-->
 
         <div id='popupBox'>
