@@ -19,7 +19,10 @@ p{
 	font-weight: "Helvetica Neue";
 }
 #left_bar{
-	margin:5% 0 0 -2%;
+	margin:5% 0 0 -5%;
+}
+#right-bar{
+  margin: 0 0 0 5%;
 }
 .legend_genres{
   cursor: pointer;
@@ -83,10 +86,13 @@ svg {
   display: block;
 }
 .right_text{
+  margin-left: 5%;
+}
+#negative_margin{
   margin-left: -5%;
 }
 #search_area{
-  margin:25% 0 0 0;
+  margin:25% 0 0 10%;
 }
 #searchboxbutton{
   float:left;
@@ -99,8 +105,8 @@ svg {
 .my-legend {
 	border: solid 1px lightgrey;
 	padding: 10px;
-  width: 100%;
-  margin: 5% 0 0 -5%;
+  width: 300px;
+  margin: 5% 0 0 5%;
 }
 .my-legend .legend-title {
   text-align: left;
